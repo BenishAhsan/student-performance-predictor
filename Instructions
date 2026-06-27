@@ -1,0 +1,233 @@
+STUDENT PERFORMANCE PREDICTION PROJECT DEMO STEPS
+
+Project Demo Plan:
+I will first show the deployed project on AWS Elastic Beanstalk because the rubric requires cloud deployment and UI.
+Then I will briefly show that the project is containerized using Docker.
+If AWS or Docker fails, I will use the local FastAPI server as backup.
+
+--------------------------------------------------
+PART 1: AWS ELASTIC BEANSTALK DEMO
+--------------------------------------------------
+
+Purpose:
+This is the main demo because the application is deployed on the cloud using AWS Elastic Beanstalk.
+
+Steps:
+
+1. Open AWS Academy / AWS Learner Lab.
+2. Start the lab.
+3. Open AWS Console.
+4. Go to Elastic Beanstalk.
+5. Select the same region where the environment was created.
+   Example:
+   us-east-1
+
+6. Open the environment:
+   student-performance-env
+
+7. Wait until the environment health becomes:
+   Ok
+
+8. Open the Elastic Beanstalk public URL.
+   Example:
+   http://student-performance-env.eba-xxxx.us-east-1.elasticbeanstalk.com/
+
+9. Expected output:
+   {"message":"Student Performance Prediction API is running"}
+
+10. Open Swagger UI by adding /docs at the end of the same URL:
+   http://student-performance-env.eba-xxxx.us-east-1.elasticbeanstalk.com/docs
+
+11. Click:
+   POST /predict
+
+12. Click:
+   Try it out
+
+13. Paste this sample JSON:
+
+{
+  "study_hours_per_day": 4,
+  "attendance_percentage": 85,
+  "mental_health_rating": 7,
+  "sleep_hours": 7,
+  "social_media_hours": 2,
+  "netflix_hours": 1,
+  "exercise_frequency": 3,
+  "part_time_job": 0,
+  "gender": 1,
+  "diet_quality": 2,
+  "internet_quality": 1,
+  "extracurricular_participation": 1
+}
+
+14. Click:
+   Execute
+
+15. Expected output:
+   predicted_exam_score
+   model_used
+
+What to say during demo:
+The application is deployed on AWS Elastic Beanstalk using Docker. The public URL shows that the API is running. The /docs page is the FastAPI Swagger UI, where we can test the prediction endpoint interactively.
+
+--------------------------------------------------
+PART 2: DOCKER LOCAL DEMO
+--------------------------------------------------
+
+Purpose:
+This shows that the project is containerized and can run in the same environment on any machine.
+
+Step 1: Open Docker Desktop.
+Wait until Docker Desktop is running.
+
+Step 2: Open terminal in the project folder where these files exist:
+app.py
+best_model.pkl
+Dockerfile
+requirements.txt
+student_habits_performance.csv
+student_performance_prediction.py
+
+Step 3: Check Docker version:
+
+docker version
+
+Step 4: Build Docker image:
+
+docker build -t student-performance .
+
+Step 5: Run Docker container:
+
+docker run -p 5055:8080 student-performance
+
+Note:
+5055 is the laptop port.
+8080 is the container port.
+
+Step 6: Open in browser:
+
+http://localhost:5055
+
+Expected output:
+{"message":"Student Performance Prediction API is running"}
+
+Step 7: Open Swagger UI:
+
+http://localhost:5055/docs
+
+Step 8: Test POST /predict using the same JSON input.
+
+If port 5055 is already in use, first check running containers:
+
+docker ps
+
+Stop old container:
+
+docker stop CONTAINER_ID
+
+Then run again:
+
+docker run -p 5055:8080 student-performance
+
+What to say during demo:
+Docker packages the FastAPI app, trained model, dependencies, and runtime environment into one container. This avoids dependency issues and makes deployment easier.
+
+--------------------------------------------------
+PART 3: NORMAL LOCAL FASTAPI BACKUP
+--------------------------------------------------
+
+Purpose:
+This is only a backup method if Docker or AWS does not work.
+
+Step 1: Open terminal in the project folder.
+
+Step 2: Create virtual environment:
+
+python -m venv venv
+
+Step 3: Activate virtual environment on Windows:
+
+venv\Scripts\activate
+
+Step 4: Install requirements:
+
+pip install -r requirements.txt
+
+Step 5: Run FastAPI app:
+
+uvicorn app:app --host 0.0.0.0 --port 8080 --reload
+
+Step 6: Open in browser:
+
+http://localhost:8080
+
+Expected output:
+{"message":"Student Performance Prediction API is running"}
+
+Step 7: Open Swagger UI:
+
+http://localhost:8080/docs
+
+Step 8: Test POST /predict using the same JSON input.
+
+--------------------------------------------------
+IMPORTANT DEMO TALKING POINTS
+--------------------------------------------------
+
+1. Dataset:
+The dataset is student_habits_performance.csv. It contains student academic and lifestyle features. The target variable is exam_score.
+
+2. Problem type:
+This is a supervised regression problem because the model predicts a continuous exam score.
+
+3. Features used:
+study_hours_per_day
+attendance_percentage
+mental_health_rating
+sleep_hours
+social_media_hours
+netflix_hours
+exercise_frequency
+part_time_job
+gender
+diet_quality
+internet_quality
+extracurricular_participation
+
+4. Models trained:
+Linear Regression
+Decision Tree Regressor
+Random Forest Regressor
+
+5. Model selection:
+The best model was selected using the lowest RMSE on the test set.
+
+6. Evaluation metrics:
+RMSE
+MAE
+R2 score
+
+7. Why RMSE:
+RMSE was used because it measures prediction error for a regression problem and penalizes large errors more strongly.
+
+8. Docker purpose:
+Docker containerizes the application so it can run consistently on different systems.
+
+9. Beanstalk purpose:
+AWS Elastic Beanstalk hosts the Dockerized application on the cloud and provides a public URL.
+
+10. Prediction endpoint:
+The /predict endpoint receives student feature values as JSON, sends them to the trained model, and returns the predicted exam score.
+
+--------------------------------------------------
+FINAL RECOMMENDED DEMO ORDER
+--------------------------------------------------
+
+1. Show AWS Elastic Beanstalk URL.
+2. Show /docs Swagger UI.
+3. Test POST /predict.
+4. Show Dockerfile briefly.
+5. Show Docker local command if asked.
+6. Explain model and dataset.
+7. Answer viva questions.
