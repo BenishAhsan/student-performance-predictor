@@ -68,8 +68,6 @@ Steps:
    predicted_exam_score
    model_used
 
-What to say during demo:
-The application is deployed on AWS Elastic Beanstalk using Docker. The public URL shows that the API is running. The /docs page is the FastAPI Swagger UI, where we can test the prediction endpoint interactively.
 
 --------------------------------------------------
 PART 2: DOCKER LOCAL DEMO
@@ -130,7 +128,6 @@ Then run again:
 
 docker run -p 5055:8080 student-performance
 
-What to say during demo:
 Docker packages the FastAPI app, trained model, dependencies, and runtime environment into one container. This avoids dependency issues and makes deployment easier.
 
 --------------------------------------------------
@@ -219,15 +216,3 @@ AWS Elastic Beanstalk hosts the Dockerized application on the cloud and provides
 
 10. Prediction endpoint:
 The /predict endpoint receives student feature values as JSON, sends them to the trained model, and returns the predicted exam score.
-
---------------------------------------------------
-FINAL RECOMMENDED DEMO ORDER
---------------------------------------------------
-
-1. Show AWS Elastic Beanstalk URL.
-2. Show /docs Swagger UI.
-3. Test POST /predict.
-4. Show Dockerfile briefly.
-5. Show Docker local command if asked.
-6. Explain model and dataset.
-7. Answer viva questions.
