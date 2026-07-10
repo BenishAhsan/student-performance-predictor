@@ -64,6 +64,5 @@ uvicorn app:app --reload
 ```
 
 ## 📸 Screenshots
-<img width="1277" height="700" alt="Launched Successfully" src="https://github.com/user-attachments/assets/fb92b954-daa7-4cf2-bcdb-b14197c0eb72" />
-<img width="1279" height="764" alt="Beanstalk Responses" src="https://github.com/user-attachments/assets/bd53f65b-8636-445f-b572-a52b11e9e82f" />
+
 
